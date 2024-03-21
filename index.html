@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Handlebars.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="stop-toggling">
+
+    <!-- Loading Container -->
+    <div class="loading-container">
+        <div class="loader" id="loading"></div>
+    </div>
+
+    <!-- Secondary Panel -->
+    <div class="secondary">
+        <div class="open-panel" id="targetcard">
+        </div>
+    </div>
+
+    <!-- Main Panel -->
+    <div class="main-panel">
+        <!-- Upper Panel -->
+        <div class="upperpanel">
+            <label for="movies">Find movies</label><br>
+            <input type="text" name="movie" id="search-movie" placeholder="Eg. Harry-Potter">
+        </div>
+        <!-- Change Label -->
+        <h4 class="change">You might be like</h4>
+
+        <!-- Container for Movie Cards -->
+        <div id="container" class="all-cards">
+        </div>
+    </div>
+
+    <!-- Handlebars Templates -->
+    <script id="movies-template" type="text/x-handlebars-template">
+        {{#if data}}
+        {{#each data}}
+        <div class="card" id="{{imdbID}}">
+            <img src="{{Poster}}" alt="">
+            <div class="descriptions">
+                <h4>{{Title}}</h4>
+                <p>({{Year}})</p>
+            </div>
+        </div>
+        {{/each}}
+        {{else}}
+           <div class="error">
+            <img src="magnifying-glass.jpg" id="errorimg"  alt="">
+            <h2 id="errorheading">Oops....</h2>
+            <p id="error-des">We couldn't find that movie. Rephrase the search term and try again..</p>
+           </div>
+        {{/if}}
+    </script>
+
+    <!-- Handlebars Templates Popup template-->
+    <script id="popup-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <img src="{{Poster}}" id="popup-card">
+        <div class="popup-card">
+            <div class="popup-description">
+                <h2>{{Title}}</h2>
+                {{#if DVD}}
+                <p>{{DVD}}</p>
+                {{/if}}
+                {{#each Ratings}}
+                 {{#if @first}}
+                <p><span class="fa fa-star checked"></span>{{Value}}</p>
+                 {{/if}} 
+                {{/each}}
+                <p>{{Genre}}</p>
+                <p>{{Plot}}</p> 
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
